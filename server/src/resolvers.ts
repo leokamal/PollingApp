@@ -74,17 +74,22 @@ export const resolvers = {
     },
 
     vote: async (_: any, { input }: { input: any }, context: any) => {
-      const { pollId, optionId, isAnonymous } = input;
+      const { pollId, optionId, isAnonymous, anonymousUserId } = input;
 
-      // For anonymous votes, generate a unique user ID that can't be traced
+      // For anonymous votes, use client-provided anonymousUserId (can't be traced)
+      // If not provided, fall back to server-side generation (still can't be traced)
       let userId: string;
       
       if (isAnonymous) {
-        // For anonymous votes, create a one-way hash based on poll, user agent, and IP
-        // This makes it impossible to trace back but still prevents duplicate votes
-        const userAgent = context.req?.headers['user-agent'] || '';
-        const ip = context.req?.ip || context.req?.connection?.remoteAddress || '';
-        userId = generateAnonymousUserId(pollId, userAgent, ip);
+        if (anonymousUserId) {
+          // Use client-provided anonymous ID (truly untraceable)
+          userId = anonymousUserId;
+        } else {
+          // Fallback: create a one-way hash (still can't be traced back)
+          const userAgent = context.req?.headers['user-agent'] || '';
+          const ip = context.req?.ip || context.req?.connection?.remoteAddress || '';
+          userId = generateAnonymousUserId(pollId, userAgent, ip);
+        }
       } else {
         userId = getOrCreateUserId(context);
       }

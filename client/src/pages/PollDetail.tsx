@@ -1,9 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_POLL, VOTE } from '../queries'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import './PollDetail.css'
+
+// Generate anonymous user ID for anonymous voting (client-side, can't be traced)
+function generateAnonymousUserId(pollId: string): string {
+  const storageKey = `anon_user_${pollId}`
+  let anonId = localStorage.getItem(storageKey)
+  
+  if (!anonId) {
+    // Generate a random ID that can't be traced back
+    anonId = Math.random().toString(36).substring(2, 15) + 
+             Math.random().toString(36).substring(2, 15) +
+             Date.now().toString(36)
+    localStorage.setItem(storageKey, anonId)
+  }
+  
+  return anonId
+}
 
 const COLORS = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe', '#43e97b', '#fa709a', '#fee140']
 
@@ -36,12 +52,16 @@ function PollDetail() {
     }
 
     try {
+      // For anonymous votes, generate/retrieve anonymous user ID client-side
+      const anonymousUserId = isAnonymous && id ? generateAnonymousUserId(id) : undefined
+
       const result = await vote({
         variables: {
           input: {
             pollId: id,
             optionId: selectedOption,
             isAnonymous,
+            anonymousUserId,
           },
         },
       })

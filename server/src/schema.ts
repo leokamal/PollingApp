@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-core';
+import gql from 'graphql-tag';
 
 export const typeDefs = gql`
   type Poll {
@@ -37,6 +37,7 @@ export const typeDefs = gql`
     pollId: ID!
     optionId: ID!
     isAnonymous: Boolean!
+    anonymousUserId: String
   }
 
   type Mutation {
