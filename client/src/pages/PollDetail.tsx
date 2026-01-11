@@ -105,7 +105,29 @@ function PollDetail() {
 
         {poll.userHasVoted ? (
           <div className="results-section">
-            <h2>Results</h2>
+            <div className="results-header-actions">
+              <h2>Results</h2>
+              <button
+                onClick={() => setShowQuestions(!showQuestions)}
+                className="btn-view-questions"
+              >
+                {showQuestions ? 'Hide Questions' : 'View Questions'}
+              </button>
+            </div>
+
+            {showQuestions && (
+              <div className="questions-preview">
+                <h3>Poll Options</h3>
+                <div className="options-list-readonly">
+                  {poll.options.map((option: any) => (
+                    <div key={option.id} className="option-readonly">
+                      <span>{option.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="results-container">
               <ResponsiveContainer width="100%" height={400}>
                 <BarChart data={chartData}>
