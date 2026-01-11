@@ -9,7 +9,7 @@ function App() {
     <Router>
       <div className="app">
         <header className="app-header">
-          <h1>🗳️ Voters</h1>
+          <h1>Voters</h1>
           <p>Create and vote on polls</p>
         </header>
         <main className="app-main">

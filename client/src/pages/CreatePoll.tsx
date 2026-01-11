@@ -152,7 +152,7 @@ function CreatePoll() {
           {error && <div className="error-message">{error.message}</div>}
 
           <div className="form-actions">
-            <button type="submit" className="btn btn-primary" disabled={loading}>
+            <button type="submit" className="btn btn-primary btn-create" disabled={loading}>
               {loading ? 'Creating...' : 'Create Poll'}
             </button>
           </div>
