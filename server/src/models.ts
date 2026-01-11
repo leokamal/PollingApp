@@ -67,9 +67,19 @@ export const PollModel = {
   },
 
   findById: (id: string): PollWithOptions | null => {
-    const poll = db.prepare('SELECT * FROM polls WHERE id = ?').get(id) as Poll | undefined;
+    const pollRow = db.prepare('SELECT * FROM polls WHERE id = ?').get(id) as any;
     
-    if (!poll) return null;
+    if (!pollRow) return null;
+
+    // Map database row (snake_case) to interface (camelCase) and convert boolean
+    const poll: Poll = {
+      id: pollRow.id,
+      title: pollRow.title,
+      creatorId: pollRow.creator_id,
+      creatorName: pollRow.creator_name,
+      isAnonymousCreator: Boolean(pollRow.is_anonymous_creator),
+      createdAt: pollRow.created_at
+    };
 
     const options = db.prepare('SELECT * FROM poll_options WHERE poll_id = ?').all(poll.id) as PollOption[];
     
@@ -86,9 +96,19 @@ export const PollModel = {
   },
 
   findAll: (): PollWithOptions[] => {
-    const polls = db.prepare('SELECT * FROM polls ORDER BY created_at DESC').all() as Poll[];
+    const pollRows = db.prepare('SELECT * FROM polls ORDER BY created_at DESC').all() as any[];
     
-    return polls.map(poll => {
+    return pollRows.map(pollRow => {
+      // Map database row (snake_case) to interface (camelCase) and convert boolean
+      const poll: Poll = {
+        id: pollRow.id,
+        title: pollRow.title,
+        creatorId: pollRow.creator_id,
+        creatorName: pollRow.creator_name,
+        isAnonymousCreator: Boolean(pollRow.is_anonymous_creator),
+        createdAt: pollRow.created_at
+      };
+
       const options = db.prepare('SELECT * FROM poll_options WHERE poll_id = ?').all(poll.id) as PollOption[];
       const voteCount = db.prepare(`
         SELECT COUNT(*) as count FROM votes WHERE poll_id = ?
