@@ -115,7 +115,7 @@ function PollDetail() {
                   <Tooltip 
                     formatter={(value: number, name: string) => {
                       if (name === 'votes') {
-                        const item = chartData.find(d => d.votes === value)
+                        const item = chartData.find((d: any) => d.votes === value)
                         return [`${value} votes (${item?.percentage}%)`, 'Votes']
                       }
                       return [value, name]
