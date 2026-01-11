@@ -191,9 +191,18 @@ function PollDetail() {
           </div>
         )}
 
-        {poll.voteCount > 0 && poll.userHasVoted && (
+        {poll.userHasVoted && (
           <div className="results-summary">
-            <p>Total votes: {poll.voteCount}</p>
+            <div className="summary-stats">
+              <div className="stat-item">
+                <span className="stat-label">Total Votes</span>
+                <span className="stat-value">{poll.voteCount}</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-label">Options</span>
+                <span className="stat-value">{poll.options.length}</span>
+              </div>
+            </div>
           </div>
         )}
       </div>
