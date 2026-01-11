@@ -72,14 +72,10 @@
 }
 
 .voting-section h2, .results-section h2 {
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 2rem;
   font-size: 1.75rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .options-list {
@@ -93,13 +89,12 @@
   display: flex;
   align-items: center;
   padding: 1.5rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+  background: var(--surface);
   position: relative;
-  overflow: hidden;
 }
 
 .option-radio::before {
@@ -108,30 +103,27 @@
   left: 0;
   top: 0;
   height: 100%;
-  width: 4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 3px;
+  background: var(--primary);
   transform: scaleY(0);
-  transition: transform 0.3s;
+  transition: transform 0.2s;
+  border-radius: 0 2px 2px 0;
 }
 
 .option-radio:hover {
-  border-color: #667eea;
-  background: rgba(102, 126, 234, 0.05);
-  transform: translateX(4px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+  border-color: var(--border-hover);
+  background: var(--surface-hover);
 }
 
 .option-radio input[type="radio"]:checked ~ span {
-  font-weight: 700;
-  color: #667eea;
-  font-size: 1.05em;
+  font-weight: 600;
+  color: var(--primary);
 }
 
 .option-radio.checked,
 .option-radio input[type="radio"]:checked {
-  border-color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+  border-color: var(--primary);
+  background: rgba(37, 99, 235, 0.05);
 }
 
 .option-radio.checked::before {
@@ -139,11 +131,11 @@
 }
 
 .option-radio input[type="radio"] {
-  width: 24px;
-  height: 24px;
-  margin-right: 1.25rem;
+  width: 20px;
+  height: 20px;
+  margin-right: 1rem;
   cursor: pointer;
-  accent-color: #667eea;
+  accent-color: var(--primary);
   flex-shrink: 0;
 }
 
