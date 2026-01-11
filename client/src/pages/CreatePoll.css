@@ -101,7 +101,7 @@
 
 .btn-remove {
   background: var(--danger-gradient);
-  color: white;
+  color: var(--danger);
   border: none;
   border-radius: 10px;
   width: 42px;
