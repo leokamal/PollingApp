@@ -144,8 +144,8 @@ function PollDetail() {
                       className="result-bar"
                       style={{ 
                         width: `${result.percentage}%`,
-                        backgroundColor: COLORS[index % COLORS.length]
-                      }}
+                        '--bar-color': COLORS[index % COLORS.length]
+                      } as React.CSSProperties}
                     />
                   </div>
                 </div>
@@ -157,7 +157,7 @@ function PollDetail() {
             <h2>Cast your vote</h2>
             <div className="options-list">
               {poll.options.map((option: any) => (
-                <label key={option.id} className="option-radio">
+                <label key={option.id} className={`option-radio ${selectedOption === option.id ? 'checked' : ''}`}>
                   <input
                     type="radio"
                     name="option"

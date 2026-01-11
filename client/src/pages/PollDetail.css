@@ -124,14 +124,20 @@
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
 }
 
-.option-radio input[type="radio"]:checked ~ span,
-.option-radio:has(input[type="radio"]:checked) {
+.option-radio input[type="radio"]:checked ~ span {
+  font-weight: 700;
+  color: #667eea;
+  font-size: 1.05em;
+}
+
+.option-radio.checked,
+.option-radio input[type="radio"]:checked {
   border-color: #667eea;
   background: rgba(102, 126, 234, 0.1);
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
 }
 
-.option-radio:has(input[type="radio"]:checked)::before {
+.option-radio.checked::before {
   transform: scaleY(1);
 }
 
@@ -270,6 +276,7 @@
   font-size: 1rem;
   position: relative;
   overflow: hidden;
+  background-color: var(--bar-color, #667eea);
 }
 
 .result-bar::after {
