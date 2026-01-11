@@ -43,6 +43,14 @@ async function startServer() {
 
   app.listen(PORT, () => {
     console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
+  }).on('error', (err: NodeJS.ErrnoException) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`❌ Port ${PORT} is already in use. Please stop the process using this port or use a different port.`);
+      console.error(`   You can find and kill the process with: netstat -ano | findstr :${PORT}`);
+      process.exit(1);
+    } else {
+      throw err;
+    }
   });
 }
 
