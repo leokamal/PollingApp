@@ -12,7 +12,7 @@ function Home() {
   return (
     <div className="home">
       <div className="home-header">
-        <Link to="/create" className="btn btn-primary">
+        <Link to="/create" className="btn-create-poll">
           ➕ Create New Poll
         </Link>
       </div>
