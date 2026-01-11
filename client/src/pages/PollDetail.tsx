@@ -27,15 +27,20 @@ function PollDetail() {
   const { id } = useParams<{ id: string }>()
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [isAnonymous, setIsAnonymous] = useState(false)
+  const [showQuestions, setShowQuestions] = useState(false)
 
   const { loading, error, data, refetch } = useQuery(GET_POLL, {
     variables: { id },
   })
 
   const [vote, { loading: voting }] = useMutation(VOTE, {
-    onCompleted: () => {
-      refetch()
+    onCompleted: (mutationData) => {
+      // Update cache immediately to avoid flickering
+      if (mutationData?.vote?.poll) {
+        refetch()
+      }
       setSelectedOption(null)
+      setShowQuestions(false)
     },
   })
 
