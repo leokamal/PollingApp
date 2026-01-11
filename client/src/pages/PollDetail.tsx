@@ -122,7 +122,7 @@ function PollDetail() {
                     }}
                   />
                   <Bar dataKey="votes" fill="#667eea">
-                    {chartData.map((entry: any, index: number) => (
+                    {chartData.map((_entry: any, index: number) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Bar>
