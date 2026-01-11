@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { CREATE_POLL } from '../mutations'
 import { GET_POLLS } from '../queries'
 import './CreatePoll.css'
@@ -69,6 +69,7 @@ function CreatePoll() {
 
   return (
     <div className="create-poll">
+      <Link to="/" className="back-link">← Back to polls</Link>
       <div className="create-poll-card">
         <h2>Create New Poll</h2>
         
