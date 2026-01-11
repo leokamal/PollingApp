@@ -18,7 +18,7 @@ export function initializeDatabase() {
   db.exec(`
     CREATE TABLE IF NOT EXISTS polls (
       id TEXT PRIMARY KEY,
-      title TEXT NOT NULL,
+      title TEXT UNIQUE NOT NULL,
       creator_id TEXT,
       creator_name TEXT,
       is_anonymous_creator BOOLEAN DEFAULT 0,
