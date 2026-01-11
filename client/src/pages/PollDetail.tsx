@@ -21,7 +21,7 @@ function generateAnonymousUserId(pollId: string): string {
   return anonId
 }
 
-const COLORS = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe', '#43e97b', '#fa709a', '#fee140']
+const COLORS = ['#2563eb', '#3b82f6', '#60a5fa', '#059669', '#10b981', '#06b6d4', '#8b5cf6', '#a855f7']
 
 function PollDetail() {
   const { id } = useParams<{ id: string }>()

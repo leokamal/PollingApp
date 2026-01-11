@@ -19,13 +19,10 @@
 }
 
 .create-poll-card h2 {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-primary);
   margin-bottom: 2rem;
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
 }
 
@@ -45,20 +42,18 @@
 .form-group input[type="text"] {
   width: 100%;
   padding: 1rem 1.25rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
   font-size: 1rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(255, 255, 255, 0.8);
-  color: #1a1a1a;
+  transition: all 0.2s ease;
+  background: var(--surface);
+  color: var(--text-primary);
 }
 
 .form-group input[type="text"]:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-  background: white;
-  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .form-group input[type="text"]:disabled {
@@ -102,9 +97,9 @@
 }
 
 .btn-add-option {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  color: #475569;
-  border: 2px dashed #cbd5e1;
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+  border: 2px dashed var(--border);
   border-radius: 12px;
   padding: 0.75rem 1.5rem;
   cursor: pointer;
@@ -117,17 +112,17 @@
 }
 
 .btn-add-option:hover {
-  background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
-  border-color: #94a3b8;
+  background: var(--surface-hover);
+  border-color: var(--border-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--card-shadow-hover);
 }
 
 .checkbox-group {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: var(--surface-hover);
   padding: 1.25rem;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
 }
 
 .checkbox-group label {
@@ -142,23 +137,23 @@
 }
 
 .checkbox-group label:hover {
-  color: #667eea;
+  color: var(--primary);
 }
 
 .checkbox-group input[type="checkbox"] {
   width: 22px;
   height: 22px;
   cursor: pointer;
-  accent-color: #667eea;
+  accent-color: var(--primary);
 }
 
 .error-message {
-  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-  color: #991b1b;
+  background: #fef2f2;
+  color: var(--danger);
   padding: 1rem 1.25rem;
   border-radius: 12px;
   margin-bottom: 1.5rem;
-  border: 1px solid #fca5a5;
+  border: 1px solid #fecaca;
   font-weight: 500;
   animation: slideIn 0.3s ease-out;
 }
