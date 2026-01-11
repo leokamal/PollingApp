@@ -91,6 +91,27 @@
   margin-bottom: 0;
 }
 
+.btn-view-chart {
+  padding: 0.625rem 1.25rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-view-chart:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
 .btn-view-questions {
   padding: 0.625rem 1.25rem;
   background: var(--surface);
@@ -101,6 +122,8 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  margin-top: 1rem;
+  width: 100%;
 }
 
 .btn-view-questions:hover {

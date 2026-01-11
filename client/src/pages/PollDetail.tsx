@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_POLL, VOTE } from '../queries'
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
+import ChartModal from '../components/ChartModal'
 import './PollDetail.css'
 
 // Generate anonymous user ID for anonymous voting (client-side, can't be traced)
@@ -21,13 +21,12 @@ function generateAnonymousUserId(pollId: string): string {
   return anonId
 }
 
-const COLORS = ['#2563eb', '#3b82f6', '#60a5fa', '#059669', '#10b981', '#06b6d4', '#8b5cf6', '#a855f7']
-
 function PollDetail() {
   const { id } = useParams<{ id: string }>()
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [isAnonymous, setIsAnonymous] = useState(false)
   const [showQuestions, setShowQuestions] = useState(false)
+  const [showChartModal, setShowChartModal] = useState(false)
 
   const { loading, error, data, refetch } = useQuery(GET_POLL, {
     variables: { id },
@@ -38,6 +37,8 @@ function PollDetail() {
       // Update cache immediately to avoid flickering
       if (mutationData?.vote?.poll) {
         refetch()
+        // Automatically show chart modal after voting
+        setShowChartModal(true)
       }
       setSelectedOption(null)
       setShowQuestions(false)
@@ -79,12 +80,6 @@ function PollDetail() {
     }
   }
 
-  const chartData = poll.results.map((result: any) => ({
-    name: result.optionText,
-    votes: result.voteCount,
-    percentage: result.percentage,
-  }))
-
   return (
     <div className="poll-detail">
       <Link to="/" className="back-link">← Back to polls</Link>
@@ -106,14 +101,21 @@ function PollDetail() {
         {poll.userHasVoted ? (
           <div className="results-section">
             <div className="results-header-actions">
-              <h2>Results</h2>
+              <h2>✓ You've voted!</h2>
               <button
-                onClick={() => setShowQuestions(!showQuestions)}
-                className="btn-view-questions"
+                onClick={() => setShowChartModal(true)}
+                className="btn-view-chart"
               >
-                {showQuestions ? 'Hide Questions' : 'View Questions'}
+                📊 View Chart
               </button>
             </div>
+
+            <button
+              onClick={() => setShowQuestions(!showQuestions)}
+              className="btn-view-questions"
+            >
+              {showQuestions ? 'Hide Questions' : 'View Questions'}
+            </button>
 
             {showQuestions && (
               <div className="questions-preview">
@@ -127,57 +129,6 @@ function PollDetail() {
                 </div>
               </div>
             )}
-
-            <div className="results-container">
-              <ResponsiveContainer width="100%" height={400}>
-                <BarChart data={chartData}>
-                  <XAxis 
-                    dataKey="name" 
-                    angle={-45} 
-                    textAnchor="end" 
-                    height={100}
-                    interval={0}
-                  />
-                  <YAxis />
-                  <Tooltip 
-                    formatter={(value: number, name: string) => {
-                      if (name === 'votes') {
-                        const item = chartData.find((d: any) => d.votes === value)
-                        return [`${value} votes (${item?.percentage}%)`, 'Votes']
-                      }
-                      return [value, name]
-                    }}
-                  />
-                  <Bar dataKey="votes" fill="#2563eb">
-                    {chartData.map((_entry: any, index: number) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-
-            <div className="results-list">
-              {poll.results.map((result: any, index: number) => (
-                <div key={result.optionId} className="result-item">
-                  <div className="result-header">
-                    <span className="result-option">{result.optionText}</span>
-                    <span className="result-stats">
-                      {result.voteCount} votes ({result.percentage}%)
-                    </span>
-                  </div>
-                  <div className="result-bar-container">
-                    <div 
-                      className="result-bar"
-                      style={{ 
-                        width: `${result.percentage}%`,
-                        '--bar-color': COLORS[index % COLORS.length]
-                      } as React.CSSProperties}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         ) : (
           <div className="voting-section">
@@ -233,6 +184,15 @@ function PollDetail() {
           </div>
         )}
       </div>
+
+      {id && (
+        <ChartModal
+          pollId={id}
+          pollTitle={poll.title}
+          isOpen={showChartModal}
+          onClose={() => setShowChartModal(false)}
+        />
+      )}
     </div>
   )
 }
