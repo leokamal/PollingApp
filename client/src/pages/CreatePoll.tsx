@@ -123,7 +123,7 @@ function CreatePoll() {
               type="text"
               value={creatorName}
               onChange={(e) => setCreatorName(e.target.value)}
-              placeholder="John Doe"
+              placeholder="Enter Your Name"
               disabled={isAnonymousCreator}
             />
           </div>
