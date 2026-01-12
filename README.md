@@ -167,6 +167,19 @@ function generateAnonymousUserId(pollId: string, userAgent: string, ip: string):
 
 ## Getting Started
 
+### Pre-requirements
+npm version: 10.8.2
+
+check version
+```bash
+npm --version
+```
+Install requirement version
+
+```bash
+npm install -g npm@10.8.2
+```
+
 ### Install Dependencies
 
 ```bash
